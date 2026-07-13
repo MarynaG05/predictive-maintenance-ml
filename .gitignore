@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local data
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Model artifacts
+models/
+artifacts/
+*.joblib
+*.pkl
+*.pickle
+*.onnx
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Reports and generated figures
+reports/*
+!reports/.gitkeep
+!reports/figures/
+reports/figures/*
+!reports/figures/.gitkeep
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+secrets/
+*.pem
+*.key
+
+# Operating system files
+.DS_Store
+._*
+Thumbs.db

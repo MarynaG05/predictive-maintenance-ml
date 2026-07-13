@@ -1,0 +1,61 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "predictive-maintenance-ml"
+version = "0.1.0"
+description = "End-to-end machine learning classification pipeline for predictive maintenance using the UCI AI4I 2020 dataset."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name = "Maryna Gutruf" }
+]
+dependencies = [
+    "joblib",
+    "numpy",
+    "pandas",
+    "scikit-learn",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit",
+    "pytest",
+    "pytest-cov",
+    "ruff",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "I",
+    "B",
+    "UP",
+]
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = [
+    "--strict-config",
+    "--strict-markers",
+    "--cov=predictive_maintenance",
+    "--cov-report=term-missing",
+]
+testpaths = ["tests"]
+pythonpath = ["src"]
