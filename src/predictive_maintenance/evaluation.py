@@ -36,7 +36,7 @@ def evaluate_binary_classifier(
             "Model must be fitted and provide probability predictions."
         ) from exc
 
-    y_score = _positive_class_probability(model, probabilities)
+    y_score = positive_class_probability(model, probabilities)
     tn, fp, fn, tp = confusion_matrix(y_validation, y_pred, labels=[0, 1]).ravel()
     _validate_binary_evaluation_target(y_validation)
 
@@ -81,7 +81,7 @@ def evaluate_models(
     }
 
 
-def _positive_class_probability(model: Any, probabilities: Any) -> np.ndarray:
+def positive_class_probability(model: Any, probabilities: Any) -> np.ndarray:
     """Return probability scores for class 1 using the model's class ordering."""
     classes = _model_classes(model)
     if classes is None:
@@ -101,6 +101,11 @@ def _positive_class_probability(model: Any, probabilities: Any) -> np.ndarray:
         raise ModelEvaluationError("Model classes_ must include class 1.")
 
     return probability_array[:, int(positive_class_indices[0])]
+
+
+def _positive_class_probability(model: Any, probabilities: Any) -> np.ndarray:
+    """Backward-compatible wrapper for class-1 probability selection."""
+    return positive_class_probability(model, probabilities)
 
 
 def _model_classes(model: Any) -> np.ndarray | None:

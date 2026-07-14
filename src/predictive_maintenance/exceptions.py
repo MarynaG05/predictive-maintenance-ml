@@ -21,6 +21,10 @@ class ModelEvaluationError(PredictiveMaintenanceError):
     """Raised when model evaluation cannot be performed."""
 
 
+class ThresholdAnalysisError(PredictiveMaintenanceError):
+    """Raised when validation-threshold analysis cannot be performed."""
+
+
 class EmptyDatasetError(DataValidationError):
     """Raised when a dataset has no rows or no columns."""
 
