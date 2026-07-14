@@ -81,6 +81,10 @@ def test_categorical_and_numerical_features_equal_model_features() -> None:
     assert config.MODEL_FEATURES == expected_features
 
 
+def test_expected_categorical_values_match_ai4i_type_levels() -> None:
+    assert config.EXPECTED_CATEGORICAL_VALUES == {"Type": ("H", "L", "M")}
+
+
 def test_model_features_match_expected_predictive_columns() -> None:
     assert config.MODEL_FEATURES == EXPECTED_MODEL_FEATURES
 

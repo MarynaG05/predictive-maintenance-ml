@@ -24,6 +24,9 @@ IDENTIFIER_COLUMNS: tuple[str, ...] = (
 )
 
 CATEGORICAL_FEATURES: tuple[str, ...] = ("Type",)
+EXPECTED_CATEGORICAL_VALUES: dict[str, tuple[str, ...]] = {
+    "Type": ("H", "L", "M"),
+}
 
 NUMERICAL_FEATURES: tuple[str, ...] = (
     "Air temperature [K]",
