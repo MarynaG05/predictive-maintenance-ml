@@ -20,6 +20,10 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
+    "ipykernel",
+    "matplotlib",
+    "nbclient",
+    "nbformat",
     "pre-commit",
     "pytest",
     "pytest-cov",
