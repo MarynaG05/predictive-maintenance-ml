@@ -13,6 +13,14 @@ class DataValidationError(PredictiveMaintenanceError):
     """Raised when dataset structure validation fails."""
 
 
+class DatasetSplitError(PredictiveMaintenanceError):
+    """Raised when train-validation-test splitting cannot be performed."""
+
+
+class ModelEvaluationError(PredictiveMaintenanceError):
+    """Raised when model evaluation cannot be performed."""
+
+
 class EmptyDatasetError(DataValidationError):
     """Raised when a dataset has no rows or no columns."""
 
