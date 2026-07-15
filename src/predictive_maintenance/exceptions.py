@@ -41,6 +41,10 @@ class ArtifactError(PredictiveMaintenanceError):
     """Raised when model artifacts cannot be built, saved, or loaded safely."""
 
 
+class PredictionError(PredictiveMaintenanceError):
+    """Raised when batch prediction cannot be performed."""
+
+
 class EmptyDatasetError(DataValidationError):
     """Raised when a dataset has no rows or no columns."""
 
