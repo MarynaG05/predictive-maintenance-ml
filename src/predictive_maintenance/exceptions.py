@@ -33,6 +33,10 @@ class ExplainabilityError(PredictiveMaintenanceError):
     """Raised when validation explainability cannot be performed."""
 
 
+class FinalEvaluationError(PredictiveMaintenanceError):
+    """Raised when final test-set evaluation cannot be performed."""
+
+
 class EmptyDatasetError(DataValidationError):
     """Raised when a dataset has no rows or no columns."""
 
