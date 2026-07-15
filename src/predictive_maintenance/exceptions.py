@@ -25,6 +25,10 @@ class ThresholdAnalysisError(PredictiveMaintenanceError):
     """Raised when validation-threshold analysis cannot be performed."""
 
 
+class ErrorAnalysisError(PredictiveMaintenanceError):
+    """Raised when validation error analysis cannot be performed."""
+
+
 class EmptyDatasetError(DataValidationError):
     """Raised when a dataset has no rows or no columns."""
 
