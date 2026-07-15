@@ -37,6 +37,10 @@ class FinalEvaluationError(PredictiveMaintenanceError):
     """Raised when final test-set evaluation cannot be performed."""
 
 
+class ArtifactError(PredictiveMaintenanceError):
+    """Raised when model artifacts cannot be built, saved, or loaded safely."""
+
+
 class EmptyDatasetError(DataValidationError):
     """Raised when a dataset has no rows or no columns."""
 
