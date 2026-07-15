@@ -29,6 +29,7 @@ This project frames machine failure prediction as decision support. The model is
 - Validation error analysis for false positives and false negatives
 - Validation permutation importance with logical feature names
 - Final refit on development data and untouched test evaluation
+- Persisted final model artifact and batch prediction interface
 - Automated tests, Ruff checks, pre-commit hooks, and GitHub Actions CI
 
 ## Final Model and Operating Point
@@ -120,6 +121,10 @@ At the validation best-F1 threshold `0.8`, the model produced:
 
 False positives represent unnecessary inspections, while false negatives represent missed failures. Lower thresholds reduce missed failures but increase workload; higher thresholds reduce false alarms but can miss more failures. Feature differences are descriptive, not causal.
 
+## Batch Prediction
+
+The Version 1 interface loads the persisted `predictive_maintenance_pipeline.joblib` artifact and `model_metadata.json`, validates that input columns match `config.MODEL_FEATURES`, runs `predict_proba()`, and applies the metadata-derived operating threshold. The output table contains `failure_probability` and `predicted_failure`; no retraining, model selection, threshold optimization, or evaluation is performed.
+
 ## ML Workflow
 
 ```mermaid
@@ -159,7 +164,9 @@ predictive-maintenance-ml/
 │   ├── error_analysis.py     # Validation error analysis
 │   ├── explainability.py     # Permutation importance
 │   ├── recommendations.py    # Business operating profiles
-│   └── final_evaluation.py   # Frozen final test evaluation
+│   ├── final_evaluation.py   # Frozen final test evaluation
+│   ├── artifacts.py          # Final model artifact persistence
+│   └── predict.py            # Batch prediction from persisted artifacts
 └── tests/                    # Automated unit and workflow tests
 ```
 
@@ -220,6 +227,20 @@ python -c "from predictive_maintenance.thresholds import run_threshold_analysis 
 python -c "from predictive_maintenance.final_evaluation import run_final_model_evaluation; print(run_final_model_evaluation()['selected_threshold_metrics'])"
 ```
 
+Run batch prediction with a persisted local artifact:
+
+```bash
+python - <<'PY'
+from predictive_maintenance import config
+from predictive_maintenance.data import load_dataset
+from predictive_maintenance.predict import run_batch_prediction
+
+features = load_dataset().loc[:, config.MODEL_FEATURES]
+result = run_batch_prediction(features, artifact_dir=config.MODELS_DIR / "final")
+print(result["prediction_dataframe"].head())
+PY
+```
+
 ## Reproducibility and Governance
 
 The workflow uses `RANDOM_SEED = 42` and a deterministic stratified 60/20/20 split. Preprocessing is fitted inside scikit-learn pipelines on the relevant training data. Model selection, threshold selection, error analysis, and explainability use train and validation data only; the final test split is used after the model and threshold are frozen.
@@ -238,7 +259,7 @@ Final-evaluation governance metadata is a process declaration, not technical pre
 
 ## Project Status
 
-Version 1 of the ML workflow is complete. Future client-facing extensions could include external validation, probability calibration, batch inference, model persistence, a REST API, monitoring, and drift detection.
+Stable portfolio release: Version 1 is complete. The project demonstrates an offline, reproducible predictive-maintenance ML workflow with final artifact persistence and batch prediction. It is not production-ready without external validation, operational monitoring, and deployment hardening.
 
 ## Documentation Links
 
@@ -248,3 +269,4 @@ Version 1 of the ML workflow is complete. Future client-facing extensions could 
 - [Architecture](docs/architecture.md)
 - [Portfolio case study](docs/portfolio_case_study.md)
 - [Results summary](docs/results_summary.md)
+- [Release notes](docs/release_notes.md)

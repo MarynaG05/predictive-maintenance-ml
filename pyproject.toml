@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "predictive-maintenance-ml"
-version = "0.1.0"
+version = "1.0.0"
 description = "End-to-end machine learning classification pipeline for predictive maintenance using the UCI AI4I 2020 dataset."
 readme = "README.md"
 requires-python = ">=3.11"
